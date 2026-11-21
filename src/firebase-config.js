@@ -1,3 +1,8 @@
-// Paste your Firebase web app config here (Firebase console > Project settings > Your apps > Web app).
+// Firebase web app config for the "bahangul" project.
 // These values are safe to commit: data is protected by Authentication and the Firestore rules, not by hiding them.
-export default { apiKey: '', authDomain: '', projectId: '', appId: '' };
+export default {
+  apiKey: 'AIzaSyDLmf67HxQTqsqPBJg2M84GVvcaisRZZkg',
+  authDomain: 'bahangul.firebaseapp.com',
+  projectId: 'bahangul',
+  appId: '1:1018300018408:web:bb75ff3cd791448db4a35d',
+};
