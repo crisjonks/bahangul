@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import f from './firebase-config.js';
 const e = import.meta.env;
-const cfg = { apiKey: e.VITE_FIREBASE_API_KEY, authDomain: e.VITE_FIREBASE_AUTH_DOMAIN, projectId: e.VITE_FIREBASE_PROJECT_ID, appId: e.VITE_FIREBASE_APP_ID };
+const cfg = { apiKey: e.VITE_FIREBASE_API_KEY || f.apiKey, authDomain: e.VITE_FIREBASE_AUTH_DOMAIN || f.authDomain, projectId: e.VITE_FIREBASE_PROJECT_ID || f.projectId, appId: e.VITE_FIREBASE_APP_ID || f.appId };
 export const enabled = !!(cfg.apiKey && cfg.projectId);
 let auth, db;
 if (enabled) { const app = initializeApp(cfg); auth = getAuth(app); db = getFirestore(app); }
