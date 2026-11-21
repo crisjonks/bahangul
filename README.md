@@ -35,8 +35,7 @@ Then on GitHub: **Settings > Pages > Source: GitHub Actions**. The workflow in `
 2. **Authentication > Sign-in method**: enable Email/Password and Google. Under **Settings > Authorized domains** add `<you>.github.io`.
 3. **Firestore Database**: create it, then paste `firestore.rules` into the Rules tab and publish.
 4. **Project settings > Your apps > Web**: copy the config values.
-5. Local: `cp .env.example .env.local` and fill in the four values.
-6. Deploy: add the same four values as repository secrets named `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`.
+5. Paste the config values into `src/firebase-config.js` (they are safe to commit), then commit and push.
 
 Without keys the app runs in local-only mode and says so on the Account and Ranks screens.
 
