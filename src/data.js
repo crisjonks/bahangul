@@ -11,17 +11,25 @@ const W=[['가방','gabang','bag'],['나무','namu','tree'],['다리','dari','le
 const ALLI=[...CI,...VI,...TI,...XI,...W],byCh={};ALLI.forEach(x=>byCh[x.ch]=x);
 const FS={'ㄱ':'k','ㄴ':'n','ㄷ':'t','ㄹ':'l','ㅁ':'m','ㅂ':'p','ㅇ':'ng'},FL=[['ㄱ','A final ㄱ is a short, unreleased “k”.'],['ㄴ','A final ㄴ is “n”: tongue tip on the ridge.'],['ㄹ','A final ㄹ is “l”: tongue touches the ridge.'],['ㅁ','A final ㅁ is “m”: lips close.'],['ㅂ','A final ㅂ is a short, unreleased “p”.'],['ㅇ','A final ㅇ is “ng” as in “sing”.'],['ㄷ','A final ㄷ is a short, unreleased “t”.']];
 const rnd=n=>Math.random()*n|0,sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
-const syl=(ci,vi,f)=>{const c=C[ci],v=V[vi],ch=comp(c[0],v[0],f||''),sn=(c[1]==='silent'?'':c[1])+v[1]+(f?FS[f]:'');return{ch,snd:sn,say:ch,tip:`${c[0]} + ${v[0]}${f?' + '+f:''} = ${ch} (“${sn}”).`}};
+const syl=(ci,vi,f)=>{const c=C[ci],v=V[vi],ch=comp(c[0],v[0],f||''),sn=(c[1]==='silent'?'':c[1])+v[1]+(f?FS[f]:'');return{ch,snd:sn,say:ch,parts:[c[0],v[0],...(f?[f]:[])],tip:`${c[0]} + ${v[0]}${f?' + '+f:''} = ${ch} (“${sn}”).`}};
 const rs=(n,f)=>{const m=new Map;while(m.size<n){const s=syl(srnd(14),srnd(10),f==='*'?FL[srnd(7)][0]:f);m.set(s.ch,s)}return[...m.values()]};
 const UN=['Consonants','Vowels','Tense consonants','Compound vowels','Syllable blocks','Final consonants (batchim)','Reading words','Mastery test'],LS=[];
 const add=(u,t,kind,focus,pool,cards)=>LS.push({id:'L'+LS.length,u,t,kind,focus,pool,cards:cards||[]});
-function unit(u,name,items,sizes,mid,base=[]){let g=0,n=0;for(const s of sizes){const f=items.slice(g,g+s),pl=[...base,...items.slice(0,g+s)],lb=f.map(x=>x.ch).join(' ');n++;add(u,`${name} ${n}: ${lb}`,'learn',f,pl,f);add(u,`Listening: ${lb}`,'listen',f,pl);add(u,`Writing: ${lb}`,'write',f,pl);g+=s;if(mid&&n===mid)add(u,'Mid-unit review','review',items.slice(0,g),items.slice(0,g))}add(u,`${name} review`,'review',items,[...base,...items])}
-unit(0,'Consonants',CI,[2,2,2,2,2,2,2],4);unit(1,'Vowels',VI,[2,2,2,2,2]);unit(2,'Tense',TI,[2,2,1],0,[CI[0],CI[2],CI[5],CI[6],CI[8],CI[9],CI[10],CI[11],CI[12]]);unit(3,'Compound vowels',XI,[2,2,3,4],0,[VI[0],VI[2],VI[4],VI[6],VI[9]]);
-for(let g=0;g<7;g++){const pl=[];for(const c of [2*g,2*g+1])for(let v=0;v<10;v++)pl.push(syl(c,v));add(4,`Syllables: ${C[2*g][0]} ${C[2*g+1][0]} + vowels`,'syl',pl,pl,[pl[0]])}
-const mx=rs(24);add(4,'Syllable mix','review',mx,mx);
-FL.forEach(([f,n])=>{const pl=rs(10,f);add(5,`Final ${f} sound`,'syl',pl,pl,[{...pl[0],tip:n+` Example: ${pl[0].ch} = “${pl[0].snd}”.`}])});
-const bm=rs(24,'*');add(5,'Batchim mix','review',bm,bm);
-for(let s=0,n=1;s<W.length;s+=5,n++){const f=W.slice(s,s+5),pl=W.slice(Math.max(0,s-5),s+5);add(6,`Words ${n}: reading`,'wread',f,pl,f);add(6,`Words ${n}: listening`,'wlisten',f,pl);add(6,`Words ${n}: spelling`,'wspell',f,pl)}
-const tp=[...CI,...VI,...TI,...XI,...rs(10),...W.slice(0,10)];add(7,'Hangul Mastery Test','test',tp,tp);
+function unit(u,name,items,sizes,mid,base=[],pairs=[]){let g=0,n=0;for(const s of sizes){const f=items.slice(g,g+s),pl=[...base,...items.slice(0,g+s)],lb=f.map(x=>x.ch).join(' ');n++;add(u,`${name} ${n}: ${lb}`,'learn',f,pl,f);add(u,`Listening: ${lb}`,'listen',f,pl);add(u,`Writing: ${lb}`,'write',f,pl);add(u,`Recall: ${lb}`,'sound',f,pl);add(u,`Stroke practice: ${lb}`,'trace',f,pl);g+=s;if(mid&&n===mid)add(u,'Mid-unit review','review',items.slice(0,g),items.slice(0,g))}
+for(const q of pairs){const t=q.map(c=>byCh[c]);add(u,`Tell apart: ${q.join(' ')}`,'pairs',t,t)}
+add(u,`${name} review`,'review',items,[...base,...items]);add(u,`${name} checkpoint`,'test',items,[...base,...items])}
+unit(0,'Consonants',CI,[2,2,2,2,2,2,2],4,[],[['ㄴ','ㅁ'],['ㄱ','ㅋ'],['ㄷ','ㅌ'],['ㅂ','ㅍ'],['ㅈ','ㅊ'],['ㄹ','ㄴ']]);
+unit(1,'Vowels',VI,[2,2,2,2,2],0,[],[['ㅏ','ㅓ'],['ㅗ','ㅜ'],['ㅡ','ㅜ','ㅗ'],['ㅑ','ㅕ'],['ㅛ','ㅠ'],['ㅓ','ㅕ']]);
+add(1,'Consonants and vowels: mix','review',[...CI,...VI],[...CI,...VI]);
+unit(2,'Tense',TI,[2,2,1],0,[CI[0],CI[2],CI[5],CI[6],CI[8],CI[9],CI[10],CI[11],CI[12]],[['ㄱ','ㅋ','ㄲ'],['ㄷ','ㅌ','ㄸ'],['ㅂ','ㅍ','ㅃ'],['ㅈ','ㅊ','ㅉ'],['ㅅ','ㅆ']]);
+unit(3,'Compound vowels',XI,[2,2,3,4],0,[VI[0],VI[2],VI[4],VI[6],VI[9]],[['ㅐ','ㅔ'],['ㅘ','ㅝ'],['ㅟ','ㅢ'],['ㅙ','ㅚ','ㅞ']]);
+add(3,'All letters: mix','review',[...CI,...VI,...TI,...XI],[...CI,...VI,...TI,...XI]);
+for(let g=0;g<7;g++){const pl=[];for(const c of [2*g,2*g+1])for(let v=0;v<10;v++)pl.push(syl(c,v));add(4,`Syllables: ${C[2*g][0]} ${C[2*g+1][0]} + vowels`,'syl',pl,pl,[pl[0]]);add(4,`Listening: ${C[2*g][0]} ${C[2*g+1][0]}`,'listen',pl,pl);add(4,`Build: ${C[2*g][0]} ${C[2*g+1][0]}`,'build',pl,pl)}
+const mx=rs(24);add(4,'Syllable mix','review',mx,mx);add(4,'Syllables checkpoint','test',mx,mx);
+FL.forEach(([f,n])=>{const pl=rs(10,f);add(5,`Final ${f} sound`,'syl',pl,pl,[{...pl[0],tip:n+` Example: ${pl[0].ch} = “${pl[0].snd}”.`}]);add(5,`Final ${f}: listening`,'listen',pl,pl);add(5,`Final ${f}: build`,'build',pl,pl)});
+const bm=rs(24,'*');add(5,'Batchim mix','review',bm,bm);add(5,'Batchim checkpoint','test',bm,bm);
+for(let s=0,n=1;s<W.length;s+=5,n++){const f=W.slice(s,s+5),pl=W.slice(Math.max(0,s-5),s+5);add(6,`Words ${n}: reading`,'wread',f,pl,f);add(6,`Words ${n}: listening`,'wlisten',f,pl);add(6,`Words ${n}: spelling`,'wspell',f,pl);add(6,`Words ${n}: recall`,'wmix',f,pl)}
+add(6,'All words: mix','review',W,W);add(6,'Words checkpoint','test',W,W);
+const tp=[...CI,...VI,...TI,...XI,...rs(10),...W.slice(0,10)];add(7,'Hangul Mastery Test','test',tp,tp);LS[LS.length-1].mastery=1;
 
 export {IN,VW,FN,BASIC,comp,C,V,T,X,CI,VI,TI,XI,W,ALLI,byCh,FS,FL,rnd,sh,UN,LS};
