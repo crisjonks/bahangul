@@ -46,3 +46,11 @@ How sync works: progress saves to `users/{uid}` (private to that user). On sign-
 ## Not built yet
 
 Stroke-order animation, microphone speaking practice, vocabulary flashcards with spaced repetition, Korean levels 1-6, weekly league promotion, friends.
+
+## Logo
+
+Drop your logo at `public/icon.png`. Until it exists the app shows `public/bori.svg`. Clicking the logo text switches between BaHangul and 바한글.
+
+## Public profiles
+
+Profiles live in `profiles/{uid}` and usernames in `usernames/{name}`. After pulling this version, paste the new `firestore.rules` into the Firebase console (Firestore > Rules > Publish). Profile links look like `#u/username`.

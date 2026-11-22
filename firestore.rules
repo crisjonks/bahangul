@@ -4,13 +4,25 @@ service cloud.firestore {
     match /users/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
-    match /leaderboard/{uid} {
-      allow read: if request.auth != null;
+    match /profiles/{uid} {
+      allow read: if true;
       allow create, update: if request.auth != null && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['name','xp','week','at'])
+        && request.resource.data.keys().hasOnly(['name','u','bo','xp','streak','best','lessons','words','letters','ach','since','week','at'])
         && request.resource.data.name is string && request.resource.data.name.size() <= 20
-        && request.resource.data.xp is number && request.resource.data.week is number;
+        && request.resource.data.u is string && request.resource.data.u.size() <= 16
+        && request.resource.data.xp is number && request.resource.data.week is number
+        && request.resource.data.bo.c is string && request.resource.data.bo.c.matches('^#[0-9a-fA-F]{6}$')
+        && request.resource.data.bo.a is list && request.resource.data.bo.a.size() <= 3;
       allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+    match /usernames/{name} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid
+        && name.matches('^[a-z0-9_]{3,16}$')
+        && !exists(/databases/$(db)/documents/usernames/$(name));
+      allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
     }
   }
 }
