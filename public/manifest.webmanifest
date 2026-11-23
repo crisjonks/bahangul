@@ -1,0 +1,38 @@
+{
+  "id": "./",
+  "name": "BaHangul",
+  "short_name": "BaHangul",
+  "description": "Learn Korean from your first letter to real conversation.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF9FF",
+  "theme_color": "#7455E8",
+  "lang": "en",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Continue Korean course", "short_name": "Learn", "url": "./#learn", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Hangul", "short_name": "Hangul", "url": "./#hangul", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Practice", "short_name": "Practice", "url": "./#practice", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ],
+  "widgets": [
+    {
+      "name": "Streak",
+      "short_name": "Streak",
+      "tag": "streak",
+      "description": "Your daily streak and XP goal.",
+      "ms_ac_template": "widgets/streak-template.json",
+      "data": "widgets/streak-data.json",
+      "type": "application/json",
+      "screenshots": [{ "src": "widgets/screenshot.png", "sizes": "500x500", "label": "Streak widget" }],
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }],
+      "update": 3600
+    }
+  ]
+}

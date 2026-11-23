@@ -54,3 +54,14 @@ Drop your logo at `public/icon.png`. Until it exists the app shows `public/bori.
 ## Public profiles
 
 Profiles live in `profiles/{uid}` and usernames in `usernames/{name}`. After pulling this version, paste the new `firestore.rules` into the Firebase console (Firestore > Rules > Publish). Profile links look like `#u/username`.
+
+## Install as an app (PWA)
+
+The site is an installable PWA: open it in Chrome, Edge or Safari and use Install / Add to Home Screen. It works offline once loaded; audio clips are cached the first time they play.
+
+- **Reminders:** Settings > Daily reminder. They fire while the app is open, and on installed Android Chrome apps through Periodic Background Sync (timing is up to the browser). Exact-time reminders when the app is fully closed need a push server.
+- **Streak widget:** a Windows 11 widget (Microsoft Edge) is declared in the manifest, and the installed app icon shows your streak as a badge where the Badging API exists. Home-screen widgets on Android and iOS need a native app.
+
+## Course content
+
+`scripts/build_words.py` rebuilds `src/course-words.json` (needs `pip install kiwipiepy korean-romanizer wordfreq`). Edit `scripts/curated.txt` (starter vocabulary) and `scripts/gloss_overrides.txt` (corrected meanings) and rerun it. See CREDITS.md.

@@ -115,3 +115,14 @@ a.rk{color:var(--tx);text-decoration:none}.rn{width:28px}
 .nd::before{content:attr(data-t);position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);font:600 12.5px/1.3 Allo,"Noto Sans KR",sans-serif;padding:5px 10px;border-radius:10px;width:max-content;max-width:190px;opacity:0;pointer-events:none;z-index:6}
 .nd.tl::before{left:0;transform:none}.nd.tr::before{left:auto;right:0;transform:none}.nd:hover::before,.nd:focus-visible::before{opacity:1}
 .bk{pointer-events:none}.pp{width:min(230px,70%)}
+
+.lset{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:42px;height:42px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--mut);display:grid;place-items:center;cursor:pointer;z-index:7}
+.fb .btn{margin-left:56px;width:calc(100% - 56px)!important}
+ruby{ruby-position:over}rt{font:500 .34em Allo,sans-serif;color:var(--mut)}.big rt{font-size:.2em}.opt rt,.tl rt{font-size:.42em}
+.sm2{font-size:min(64px,15vw);overflow-wrap:anywhere}
+.sq2g{grid-template-columns:repeat(3,1fr);gap:8px}@media(min-width:620px){.sq2g{grid-template-columns:repeat(6,1fr)}}
+.sq2{border-radius:14px;box-shadow:0 3px 0 color-mix(in srgb,var(--c) 72%,#000)}.sq2 svg{width:20px;height:20px;margin-bottom:3px}.sq2 b{font-size:22px}.sq2 span{font-size:11.5px}
+.un{margin-bottom:10px}.uh{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;cursor:pointer;background:var(--uc,var(--pri));color:#fff;border-radius:16px;padding:14px 16px;font:700 17px Allo,"Noto Sans KR",sans-serif;text-align:left;box-shadow:0 4px 0 color-mix(in srgb,var(--uc,var(--pri)) 70%,#000)}.uh .pc{background:rgba(255,255,255,.22);border-radius:10px;padding:2px 10px;font-size:14px;flex:none}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--pri);color:#fff;border-radius:20px;padding:18px;margin-bottom:12px;box-shadow:0 5px 0 color-mix(in srgb,var(--pri) 70%,#000)}.hero small{opacity:.85;font-weight:600}.hero h2{margin:2px 0 0;font-size:20px;overflow-wrap:anywhere}.btn.w{background:#fff;color:var(--pri);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+@media(max-width:520px){nav button{padding:6px 2px;font-size:9.5px;min-width:0;flex:1}nav button span svg{width:21px;height:21px}}
+.opt{padding:20px 10px;border-radius:16px}.opt:hover{border-color:var(--pri)}.bar{height:16px}.fb{border-radius:22px 22px 0 0;box-shadow:0 -4px 0 rgba(0,0,0,.06)}
